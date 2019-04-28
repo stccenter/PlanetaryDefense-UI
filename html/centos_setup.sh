@@ -17,3 +17,12 @@ sudo systemctl enable mariadb.service
 sudo yum install php php-mysql
 sudo systemctl restart httpd.service
 sudo cp -r /home/centos/pd-mitigation-gateway/PlanetaryDefense-UI/html/* /var/www/html/
+
+mysql -u root
+CREATE DATABASE wordpress;
+mysql -u root wordpress < /home/centos/pd-mitigation-gateway/PlanetaryDefense-UI/data-dump.sql
+
+use wordpress;
+update wp_options set option_value = http://18.235.18.168 where option_id < 3;
+select option_id, option_name, option_value from wp_options where option_id < 3;
+exit;
